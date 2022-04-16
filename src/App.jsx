@@ -1,10 +1,14 @@
 import RouterConfig from './routes/routerConfig'
+import { Provider } from 'react-redux'
+import store from './store/store'
 
 function App() {
   return (
-    <div className="font-poppins">
-      <RouterConfig />
-    </div>
+    <Provider store={store}>
+      <div className="font-poppins">
+        <RouterConfig />
+      </div>
+    </Provider>
   )
 }
 
