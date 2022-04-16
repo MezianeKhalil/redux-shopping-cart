@@ -6,7 +6,7 @@ export default function Cart({id, title, price, image}) {
 
     const dispatch = useDispatch()
     const addToCart = (product)=>{
-        dispatch(addToCartAction(product))
+        dispatch(addToCartAction({...product, quantity: 1}))
     }
 
     return (

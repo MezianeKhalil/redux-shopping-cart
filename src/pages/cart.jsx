@@ -1,6 +1,15 @@
 import Layout from "../components/layout"
 import CartTable from '../components/cartTable'
+import { useSelector, useDispatch } from 'react-redux'
+import { clearCartAction } from '../store/actions/cartActions'
 export default function Cart() {
+
+  const dispatch = useDispatch()
+  const products = useSelector(state => state.cart)
+  const total = products.reduce((acc, cur) => acc + cur.price * cur.quantity, 0)
+  const clearCart = () => {
+    dispatch(clearCartAction())
+  }
   return (
     <>
         <Layout title="Cart | Shopping">
@@ -14,10 +23,10 @@ export default function Cart() {
                       <ul>
                           <li className='flex justify-between w-full text-lg text-gray-800'>
                               <p>Cart Subtotal</p>
-                              <p>45$</p>
+                              <p>${Math.floor(total)}</p>
                           </li>
                       </ul>
-                      <button className='w-full bg-blue-500 py-2 px-3 rounded-sm text-white mt-4'>Checkout</button>
+                      <button onClick={()=>clearCart()} className='w-full bg-blue-500 py-2 px-3 rounded-sm text-white mt-4'>Checkout</button>
                   </div>
                 </div>
               </div>
