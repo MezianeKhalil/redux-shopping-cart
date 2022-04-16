@@ -17,7 +17,15 @@ export default function Cart() {
             <div className="container mx-auto">
               <h1 className="text-2xl text-gray-900 font-medium mb-3">Order Summary</h1>
               <div className="grid grid-cols-12 gap-2">
-                <CartTable/>
+                {
+                  !products.length && 
+                    <div className='bg-blue-500 capitalize text-white py-3 px-4 col-span-12 lg:col-span-8 xl:col-span-9 rounded-md text-center flex justify-center items-center text-lg'>
+                      your cart is empty
+                    </div>
+                }
+                {
+                  products.length > 0 &&  <CartTable/>
+                }
                 <div className='bg-white col-span-12 lg:col-span-4 xl:col-span-3'>
                   <div className='border-2 border-gray-100 p-4 rounded-sm'>
                       <ul>
