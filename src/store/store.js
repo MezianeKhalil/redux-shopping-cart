@@ -33,7 +33,20 @@ export const getProducts = createAsyncThunk(
 const cartSlice = createSlice({
     name: 'cart',
     initialState: [],
-    reducers: {}
+    reducers: {
+        addToCart: (state, action) => {
+            let exist = state.find(item => item.id === action.payload.id)
+            if(!exist){
+                state.push(action.payload)
+            }
+            state.map(item => {
+                if(item.id === action.payload.id){
+                    item.quantity = action.payload.quantity
+                }
+                return item
+            })
+        }
+    }
 })
 
 const productSlice = createSlice({
@@ -47,8 +60,7 @@ const productSlice = createSlice({
     }
 })
 
-export const { add, clear, remove, update } = cartSlice.actions
-export const { addProducts } = productSlice.actions
+export const { addToCart } = cartSlice.actions
 
 export const newStore = configureStore({
     reducer: {

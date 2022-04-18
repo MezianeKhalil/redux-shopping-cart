@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { addToCartAction } from '../store/actions/cartActions'
+import { addToCart } from '../store/store'
 
 export default function Cart({id, title, price, image}) {
 
     const dispatch = useDispatch()
-    const addToCart = (product)=>{
-        dispatch(addToCartAction({...product, quantity: 1}))
+    const addToCartHandler = (product)=>{
+        dispatch(addToCart({...product, quantity: 1}))
     }
 
     return (
@@ -20,7 +21,7 @@ export default function Cart({id, title, price, image}) {
                         <Link className="text-gray-900 text-lg truncate font-medium pt-2 capitalize" to={`/product/${id}`}>{title}</Link>
                         <div className="flex justify-between mt-4">
                             <p className="text-lg text-gray-800">${price}</p>
-                            <button onClick={()=>addToCart({id, title, price, image})} className="py-2 px-3 bg-blue-600 text-white rounded-sm">Add To cart</button>
+                            <button onClick={()=>addToCartHandler({id, title, price, image})} className="py-2 px-3 bg-blue-600 text-white rounded-sm">Add To cart</button>
                         </div>
                     </div>
                 </div>
