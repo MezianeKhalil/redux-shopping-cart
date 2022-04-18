@@ -1,5 +1,12 @@
 import reduxThunk from 'redux-thunk'
-import { configureStore, createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { configureStore, createSlice, createAsyncThunk, combineReducers } from '@reduxjs/toolkit'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+
+const persistConfig = {
+    key: 'root',
+    storage,
+}
 
 export const getProducts = createAsyncThunk(
     'products/getProducts', 
@@ -58,12 +65,15 @@ const productSlice = createSlice({
     }
 })
 
-export const { addToCart, deleteFromCart, updateQuantity, clearCart } = cartSlice.actions
+const persistedReducer = persistReducer(persistConfig, combineReducers({
+    cart: cartSlice.reducer,
+    products: productSlice.reducer
+}))
 
-export const newStore = configureStore({
-    reducer: {
-        cart: cartSlice.reducer,
-        products: productSlice.reducer
-    },
+export const store = configureStore({
+    reducer: persistedReducer,
     middleware: [ reduxThunk ]
 })
+export const persistor = persistStore(store)
+
+export const { addToCart, deleteFromCart, updateQuantity, clearCart } = cartSlice.actions

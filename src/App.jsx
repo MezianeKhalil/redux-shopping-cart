@@ -1,13 +1,17 @@
 import RouterConfig from './routes/routerConfig'
 import { Provider } from 'react-redux'
-import { newStore } from './store/store'
+import { persistor, store } from './store/store'
+import { PersistGate } from 'redux-persist/integration/react'
+
 
 function App() {
   return (
-    <Provider store={newStore}>
-       <div className="font-poppins">
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <div className="font-poppins">
           <RouterConfig />
         </div>
+      </PersistGate>
     </Provider>
   )
 }
