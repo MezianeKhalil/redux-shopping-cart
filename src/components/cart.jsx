@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { addToCartAction } from '../store/actions/cartActions'
 import { addToCart } from '../store/store'
 
 export default function Cart({id, title, price, image}) {

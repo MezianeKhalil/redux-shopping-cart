@@ -1,6 +1,6 @@
 import RouterConfig from './routes/routerConfig'
 import { Provider } from 'react-redux'
-import { newStore, store } from './store/store'
+import { newStore } from './store/store'
 
 function App() {
   return (

@@ -1,20 +1,4 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux'
 import reduxThunk from 'redux-thunk'
-import cartReducer from './reducers/cartReducer'
-import productReducer from './reducers/productReducer'
-
-const middleware = applyMiddleware(reduxThunk)
-
-const rootReducer = combineReducers({
-    cart: cartReducer,
-    products: productReducer
-})
-
-export const store = createStore(rootReducer, middleware)
-
-
-
-// new code update
 import { configureStore, createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 export const getProducts = createAsyncThunk(
@@ -45,6 +29,20 @@ const cartSlice = createSlice({
                 }
                 return item
             })
+        },
+        deleteFromCart: (state, action) => {
+            return state.filter(product => product.id !== action.payload)
+        },
+        updateQuantity: (state, action) => {
+            state.map(item => {
+                if(item.id === action.payload.productId){
+                    item.quantity = action.payload.quantity
+                }
+                return item
+            }) 
+        },
+        clearCart: (state, action) => {
+            return []
         }
     }
 })
@@ -55,12 +53,12 @@ const productSlice = createSlice({
     reducers: {},
     extraReducers: (builder)=>{
         builder.addCase(getProducts.fulfilled,(state, action)=>{
-            state.push(...action.payload)
+            return [...action.payload]
         })
     }
 })
 
-export const { addToCart } = cartSlice.actions
+export const { addToCart, deleteFromCart, updateQuantity, clearCart } = cartSlice.actions
 
 export const newStore = configureStore({
     reducer: {

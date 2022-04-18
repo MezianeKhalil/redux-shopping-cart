@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import Layout from "../components/layout"
 import Cart from "../components/cart"
 import { useDispatch, useSelector } from 'react-redux'
-import { getProductsAction } from '../store/actions/productActions'
 import { getProducts } from '../store/store'
 
 export default function Home(){

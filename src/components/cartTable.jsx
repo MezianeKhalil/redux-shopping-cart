@@ -1,15 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteFromCartAction, updateCartAction } from '../store/actions/cartActions'
+import { deleteFromCart, updateQuantity } from '../store/store'
 
 export default function CartTable() {
 
     const products = useSelector(state => state.cart)
     const dispatch = useDispatch()
     const deleteAction = (productId)=>{
-        dispatch(deleteFromCartAction(productId))
+        dispatch(deleteFromCart(productId))
     }
     const updateAction = (productId, quantity)=>{
-        dispatch(updateCartAction(productId, quantity))
+        dispatch(updateQuantity({productId, quantity}))
     }
     return (
         <>
